@@ -6,13 +6,14 @@
 [node name="Playground" type="Node2D"]
 
 [node name="KongleCamera" type="Node2D" parent="."]
+process_priority = 1
+process_physics_priority = 1
 position = Vector2(193, 107)
 script = ExtResource("2_n6048")
-active = true
 enable_physics_interpolation = true
-enable_pixel_snap = true
 follow_target = NodePath("../Player")
 metadata/_custom_type_script = "uid://dsiram2415or3"
 
 [node name="Player" parent="." instance=ExtResource("1_62it3")]
 position = Vector2(193, 107)
+motion_mode = 1
