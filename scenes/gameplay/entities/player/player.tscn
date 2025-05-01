@@ -1,58 +1,84 @@
-[gd_scene load_steps=5 format=3 uid="uid://djbiscwupf0yu"]
+[gd_scene load_steps=6 format=3 uid="uid://djbiscwupf0yu"]
 
 [ext_resource type="Script" uid="uid://bquvjpwtexqed" path="res://scripts/features/player/player.gd" id="1_pm5u7"]
-[ext_resource type="Texture2D" uid="uid://5gjlt1mbqkt3" path="res://assets/art/gameplay/entities/player/player_snake_segment_temp.png" id="2_ypu5l"]
+[ext_resource type="Shader" uid="uid://ckoqjds0wo5xq" path="res://resources/shaders/scenes/gameplay/entities/player/player_snake_body.gdshader" id="2_u78ee"]
 [ext_resource type="Script" uid="uid://cfwymi2svj7wy" path="res://scripts/features/player/snake_segment_component.gd" id="3_u78ee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pm5u7"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dfvr2"]
+shader = ExtResource("2_u78ee")
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_pm5u7")
-snake_segments_path = NodePath("SnakeSegments")
+snake_segments_path = NodePath("SnakeSegments/CanvasGroup")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pm5u7")
 
 [node name="SnakeSegments" type="Node" parent="."]
 
-[node name="Segment1" type="Sprite2D" parent="SnakeSegments"]
-position = Vector2(1, 0)
-texture = ExtResource("2_ypu5l")
-script = ExtResource("3_u78ee")
-radius = 5.0
-follow_speed = 20.0
+[node name="CanvasGroup" type="CanvasGroup" parent="SnakeSegments"]
+material = SubResource("ShaderMaterial_dfvr2")
 
-[node name="Segment2" type="Sprite2D" parent="SnakeSegments" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment1" type="Node2D" parent="SnakeSegments/CanvasGroup"]
 position = Vector2(1, 0)
-texture = ExtResource("2_ypu5l")
 script = ExtResource("3_u78ee")
-radius = 2.0
-distance_constraint = 4.0
+radius = 2.5
+distance_constraint = 0.5
+follow_speed = 6.0
+max_angle_constraint = 5.0
+
+[node name="Segment2" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
+radius = 2.5
+distance_constraint = 0.5
 connecting_segment = NodePath("../Segment1")
-follow_speed = 3.0
+follow_speed = 6.0
+max_angle_constraint = 5.0
 
-[node name="Segment3" type="Sprite2D" parent="SnakeSegments" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment3" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
 position = Vector2(1, 0)
-texture = ExtResource("2_ypu5l")
 script = ExtResource("3_u78ee")
-radius = 2.0
-distance_constraint = 6.0
+radius = 2.5
+distance_constraint = 0.5
 connecting_segment = NodePath("../Segment2")
-follow_speed = 2.0
+follow_speed = 6.0
+max_angle_constraint = 5.0
 
-[node name="Segment4" type="Sprite2D" parent="SnakeSegments" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment4" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
 position = Vector2(1, 0)
-texture = ExtResource("2_ypu5l")
 script = ExtResource("3_u78ee")
-radius = 2.0
-distance_constraint = 4.0
+radius = 2.5
+distance_constraint = 0.5
 connecting_segment = NodePath("../Segment3")
-follow_speed = 1.5
+follow_speed = 6.0
+max_angle_constraint = 5.0
 
-[node name="Segment5" type="Sprite2D" parent="SnakeSegments" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment5" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
 position = Vector2(1, 0)
-texture = ExtResource("2_ypu5l")
 script = ExtResource("3_u78ee")
-radius = 2.0
-distance_constraint = 2.0
+radius = 2.5
+distance_constraint = 0.5
 connecting_segment = NodePath("../Segment4")
+follow_speed = 6.0
+max_angle_constraint = 5.0
+
+[node name="Segment6" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
+radius = 2.5
+distance_constraint = 0.5
+connecting_segment = NodePath("../Segment5")
+follow_speed = 6.0
+max_angle_constraint = 5.0
+
+[node name="Segment7" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
+radius = 2.5
+distance_constraint = 0.5
+connecting_segment = NodePath("../Segment6")
+follow_speed = 6.0
+max_angle_constraint = 5.0

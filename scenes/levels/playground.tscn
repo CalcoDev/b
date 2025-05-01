@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkobr68xwsktt"]
+[gd_scene load_steps=4 format=3 uid="uid://dkobr68xwsktt"]
 
 [ext_resource type="PackedScene" uid="uid://djbiscwupf0yu" path="res://scenes/gameplay/entities/player/player.tscn" id="1_62it3"]
 [ext_resource type="Script" uid="uid://dsiram2415or3" path="res://scripts/components/kongle_camera_component.gd" id="2_n6048"]
+[ext_resource type="Texture2D" uid="uid://bkcp8uwbk0ssd" path="res://assets/art/gameplay/entities/player/player_debug.png" id="3_o8weq"]
 
 [node name="Playground" type="Node2D"]
 
@@ -11,9 +12,12 @@ process_physics_priority = 1
 position = Vector2(193, 107)
 script = ExtResource("2_n6048")
 enable_physics_interpolation = true
-follow_target = NodePath("../Player")
 metadata/_custom_type_script = "uid://dsiram2415or3"
 
 [node name="Player" parent="." instance=ExtResource("1_62it3")]
 position = Vector2(193, 107)
 motion_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(97, 100)
+texture = ExtResource("3_o8weq")
