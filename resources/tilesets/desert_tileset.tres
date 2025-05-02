@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://3uqsc7w37xnp"]
+
+[ext_resource type="Texture2D" uid="uid://tsbptmj7d4sm" path="res://assets/art/gameplay/tilesets/desert_tileset.png" id="1_vlnap"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rffv3"]
+texture = ExtResource("1_vlnap")
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/probability = 0.1
+2:0/0 = 0
+2:0/0/probability = 0.1
+3:0/0 = 0
+3:0/0/probability = 0.1
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_rffv3")

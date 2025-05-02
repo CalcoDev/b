@@ -1,14 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://djbiscwupf0yu"]
+[gd_scene load_steps=10 format=3 uid="uid://djbiscwupf0yu"]
 
 [ext_resource type="Script" uid="uid://bquvjpwtexqed" path="res://scripts/features/player/player.gd" id="1_pm5u7"]
 [ext_resource type="Shader" uid="uid://ckoqjds0wo5xq" path="res://resources/shaders/scenes/gameplay/entities/player/player_snake_body.gdshader" id="2_u78ee"]
+[ext_resource type="Texture2D" uid="uid://dr6ftktum7xtx" path="res://assets/art/gameplay/entities/player/player_snake_eye.png" id="3_43yty"]
 [ext_resource type="Script" uid="uid://bjxi128id82av" path="res://scripts/features/player/snake_component.gd" id="3_dfvr2"]
 [ext_resource type="Script" uid="uid://cfwymi2svj7wy" path="res://scripts/features/player/snake_segment_component.gd" id="3_u78ee"]
+[ext_resource type="Texture2D" uid="uid://5gjlt1mbqkt3" path="res://assets/art/gameplay/entities/player/player_snake_segment_temp.png" id="5_ks3nw"]
+[ext_resource type="Script" uid="uid://d1oxyihiuxpf3" path="res://scripts/features/player/player_snake_eye_component.gd" id="6_758ca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pm5u7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dfvr2"]
 shader = ExtResource("2_u78ee")
+shader_parameter/u_line_colour = Color(0, 0, 0, 1)
+shader_parameter/u_line_thickness = 1
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("snake_component")]
 script = ExtResource("1_pm5u7")
@@ -20,47 +25,120 @@ shape = SubResource("RectangleShape2D_pm5u7")
 [node name="SnakeRender" type="CanvasGroup" parent="."]
 material = SubResource("ShaderMaterial_dfvr2")
 
-[node name="Snake" type="Node" parent="SnakeRender"]
+[node name="Snake" type="Node2D" parent="SnakeRender"]
 script = ExtResource("3_dfvr2")
-snake_length = 30.0
+snake_length = 40.0
 
-[node name="Segment1" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment1" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 follow_speed = 1000.0
 
-[node name="Segment2" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment2" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment3" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment3" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment4" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment4" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment5" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment5" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment6" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment6" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment7" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment7" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment8" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment8" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment9" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment9" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
 
-[node name="Segment10" type="Node2D" parent="SnakeRender/Snake"]
-position = Vector2(1, 0)
+[node name="Segment10" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
 script = ExtResource("3_u78ee")
+
+[node name="Segment11" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+follow_speed = 1000.0
+
+[node name="Segment12" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment13" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment14" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment15" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment16" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment17" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment18" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment19" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="Segment20" type="Sprite2D" parent="SnakeRender/Snake"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ks3nw")
+script = ExtResource("3_u78ee")
+
+[node name="SnakeEye" type="Sprite2D" parent="SnakeRender"]
+position = Vector2(3, -3)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_43yty")
+script = ExtResource("6_758ca")
+
+[node name="SnakeEye2" type="Sprite2D" parent="SnakeRender"]
+position = Vector2(-3, -3)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_43yty")
+script = ExtResource("6_758ca")

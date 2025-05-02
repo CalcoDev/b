@@ -27,11 +27,12 @@ func update(head_position: Vector2 = snake_position) -> void:
     snake_position = head_position
     _segments[0]._angle = (snake_position - _segments[0].global_position).angle()
     _segments[0]._position = snake_position
+    
     for i in _segments.size()-1:
         var curr_angle := (_segments[i]._position - _segments[i+1]._position).angle()
         _segments[i+1]._angle = _constrain_angle(curr_angle, _segments[i]._angle, angle_constraint)
         _segments[i+1]._position = _segments[i]._position - (v2_from_angle(_segments[i+1]._angle) * distance_constraint)
-
+        
 func v2_from_angle(angle: float) -> Vector2:
     return Vector2(cos(angle), sin(angle))
 
