@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://djbiscwupf0yu"]
+[gd_scene load_steps=7 format=3 uid="uid://djbiscwupf0yu"]
 
 [ext_resource type="Script" uid="uid://bquvjpwtexqed" path="res://scripts/features/player/player.gd" id="1_pm5u7"]
 [ext_resource type="Shader" uid="uid://ckoqjds0wo5xq" path="res://resources/shaders/scenes/gameplay/entities/player/player_snake_body.gdshader" id="2_u78ee"]
+[ext_resource type="Script" uid="uid://bjxi128id82av" path="res://scripts/features/player/snake_component.gd" id="3_dfvr2"]
 [ext_resource type="Script" uid="uid://cfwymi2svj7wy" path="res://scripts/features/player/snake_segment_component.gd" id="3_u78ee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pm5u7"]
@@ -9,76 +10,57 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dfvr2"]
 shader = ExtResource("2_u78ee")
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("snake_component")]
 script = ExtResource("1_pm5u7")
-snake_segments_path = NodePath("SnakeSegments/CanvasGroup")
+snake_component = NodePath("SnakeRender/Snake")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pm5u7")
 
-[node name="SnakeSegments" type="Node" parent="."]
-
-[node name="CanvasGroup" type="CanvasGroup" parent="SnakeSegments"]
+[node name="SnakeRender" type="CanvasGroup" parent="."]
 material = SubResource("ShaderMaterial_dfvr2")
 
-[node name="Segment1" type="Node2D" parent="SnakeSegments/CanvasGroup"]
-position = Vector2(1, 0)
-script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-follow_speed = 6.0
-max_angle_constraint = 5.0
+[node name="Snake" type="Node" parent="SnakeRender"]
+script = ExtResource("3_dfvr2")
+snake_length = 30.0
 
-[node name="Segment2" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment1" type="Node2D" parent="SnakeRender/Snake"]
 position = Vector2(1, 0)
 script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-connecting_segment = NodePath("../Segment1")
-follow_speed = 6.0
-max_angle_constraint = 5.0
+follow_speed = 1000.0
 
-[node name="Segment3" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment2" type="Node2D" parent="SnakeRender/Snake"]
 position = Vector2(1, 0)
 script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-connecting_segment = NodePath("../Segment2")
-follow_speed = 6.0
-max_angle_constraint = 5.0
 
-[node name="Segment4" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment3" type="Node2D" parent="SnakeRender/Snake"]
 position = Vector2(1, 0)
 script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-connecting_segment = NodePath("../Segment3")
-follow_speed = 6.0
-max_angle_constraint = 5.0
 
-[node name="Segment5" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment4" type="Node2D" parent="SnakeRender/Snake"]
 position = Vector2(1, 0)
 script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-connecting_segment = NodePath("../Segment4")
-follow_speed = 6.0
-max_angle_constraint = 5.0
 
-[node name="Segment6" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment5" type="Node2D" parent="SnakeRender/Snake"]
 position = Vector2(1, 0)
 script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-connecting_segment = NodePath("../Segment5")
-follow_speed = 6.0
-max_angle_constraint = 5.0
 
-[node name="Segment7" type="Node2D" parent="SnakeSegments/CanvasGroup" node_paths=PackedStringArray("connecting_segment")]
+[node name="Segment6" type="Node2D" parent="SnakeRender/Snake"]
 position = Vector2(1, 0)
 script = ExtResource("3_u78ee")
-radius = 2.5
-distance_constraint = 0.5
-connecting_segment = NodePath("../Segment6")
-follow_speed = 6.0
-max_angle_constraint = 5.0
+
+[node name="Segment7" type="Node2D" parent="SnakeRender/Snake"]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
+
+[node name="Segment8" type="Node2D" parent="SnakeRender/Snake"]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
+
+[node name="Segment9" type="Node2D" parent="SnakeRender/Snake"]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
+
+[node name="Segment10" type="Node2D" parent="SnakeRender/Snake"]
+position = Vector2(1, 0)
+script = ExtResource("3_u78ee")
