@@ -55,6 +55,17 @@ func _process(delta: float) -> void:
     for snake_segment in _snake_segments:
         snake_segment.update(delta)
         snake_segment.queue_redraw()
+    
+    # snake run animation
+    var inp := InputManager.instance.data.move_vec
+    if inp.length_squared() > 0.0:
+        var angle := inp.angle()
+        for snake_segment in _snake_segments:
+            snake_segment.rotation = angle
+            snake_segment.modulate = Color(1, 1, 1, 1)
+    else:
+        for snake_segment in _snake_segments:
+            snake_segment.modulate = Color(1, 0, 0, 1)
 
 func _physics_process(delta: float) -> void:
     var inp := InputManager.instance.data.move_vec
