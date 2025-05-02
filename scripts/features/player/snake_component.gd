@@ -12,6 +12,10 @@ var distance_constraint: float = 0.0:
 
 @export var snake_position: Vector2 = Vector2.ZERO
 
+var segment_count: int = 0:
+    get():
+        return _segments.size()
+
 func _ready() -> void:
     for child in get_children():
         if child is SnakeSegmentComponent:

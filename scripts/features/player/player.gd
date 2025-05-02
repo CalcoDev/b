@@ -9,12 +9,32 @@ extends CharacterBody2D
 
 @export_group("Procedural Animation")
 @export var snake_component: SnakeComponent
+@export var snake_component_shadow: SnakeComponent
+@export var shadow_offset: Vector2 = Vector2(0.0, 5.0)
+
+@export var dodge_jump_force: float = 100.0
+@export var dodge_jump_force_random: float = 0.2
+
+@export var eyes: Node2D
+
+var _dodge_offset := Vector2.ZERO
 
 func _ready() -> void:
     snake_component.update(global_position)
+    snake_component_shadow.update(global_position + shadow_offset)
 
 func _process(_delta: float) -> void:
-    snake_component.update(global_position)
+    snake_component.update(global_position + _dodge_offset)
+    snake_component_shadow.update(global_position + shadow_offset)
+    _dodge_offset = _dodge_offset.lerp(Vector2.ZERO, _delta * 5.0)
+    eyes.position = Vector2.UP * -_dodge_offset.y
+
+    if InputManager.instance.data.dodge_key.pressed:
+        _dodge()
+    
+    # for i in range(snake_component.segment_count):
+    #     var segment := snake_component.get_segment(i)
+    #     segment.non_calc_offset = segment.non_calc_offset.lerp(Vector2.ZERO, _delta * 5.0)
 
 func _physics_process(delta: float) -> void:
     var inp := InputManager.instance.data.move_vec
@@ -31,3 +51,11 @@ func _physics_process(delta: float) -> void:
         self.velocity = self.velocity.move_toward(Vector2.ZERO, deceleration * delta)
     self.move_and_slide()
 
+func _dodge() -> void:
+    # apply a random amount of force to each snake segment
+    # for i in range(snake_component.segment_count):
+    #     var segment := snake_component.get_segment(i)
+    #     var force := dodge_jump_force * randf_range(1.0 - dodge_jump_force_random, 1.0 + dodge_jump_force_random)
+    #     segment.non_calc_offset = Vector2.UP * force
+    var force := dodge_jump_force * randf_range(1.0 - dodge_jump_force_random, 1.0 + dodge_jump_force_random)
+    _dodge_offset = Vector2.UP * force
