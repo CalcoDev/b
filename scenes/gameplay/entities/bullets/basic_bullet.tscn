@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://13o11nhnge2f"]
+
+[ext_resource type="Script" uid="uid://dl5vbhehdy3ts" path="res://scripts/features/weapons/bullets/basic_bullet.gd" id="1_b3y5s"]
+[ext_resource type="Texture2D" uid="uid://gfhihu5ct7ro" path="res://assets/art/gameplay/guns/bullets/basic_bullet.png" id="2_o4bf3"]
+[ext_resource type="Script" uid="uid://drplh4p4usr1g" path="res://scripts/components/faction_component.gd" id="3_apncg"]
+[ext_resource type="Script" uid="uid://iwhdxt4658kg" path="res://scripts/components/hitbox_component.gd" id="3_m1m07"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apncg"]
+size = Vector2(9, 4)
+
+[node name="BasicBullet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox_component")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_b3y5s")
+hitbox_component = NodePath("HitboxComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_apncg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_o4bf3")
+offset = Vector2(0.5, 0)
+
+[node name="FactionComponent" type="Node" parent="."]
+script = ExtResource("3_apncg")
+metadata/_custom_type_script = "uid://drplh4p4usr1g"
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("hitbox_owner", "faction")]
+script = ExtResource("3_m1m07")
+hitbox_owner = NodePath("")
+faction = NodePath("../FactionComponent")
+default_responder = NodePath(".")
+damage = 5.0
+metadata/_custom_type_script = "uid://iwhdxt4658kg"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_apncg")

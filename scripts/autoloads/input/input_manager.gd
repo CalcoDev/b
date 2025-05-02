@@ -34,6 +34,9 @@ class Data:
 
     var mouse_pos := Vector2.ZERO
 
+    var shoot_primary_key := Key.new()
+    var shoot_secondary_key := Key.new()
+
 var data := Data.new()
 var update_process := true:
     set(value):
@@ -72,3 +75,6 @@ func _update(delta: float) -> void:
     self.data.dodge_key.update_from_input("dodge", delta)
 
     self.data.mouse_pos = get_global_mouse_position()
+
+    self.data.shoot_primary_key.update_from_input("shoot_primary", delta)
+    self.data.shoot_secondary_key.update_from_input("shoot_secondary", delta)

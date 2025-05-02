@@ -7,6 +7,10 @@ extends CharacterBody2D
 @export var deceleration: float = 600.0 * 2.0
 @export var turn_speed: float = 900.0 * 2.0
 
+@export_group("Shootings")
+@export var gun_pivot: Node2D
+@export var gun: Weapon
+
 @export_group("Procedural Animation")
 @export var snake_component: SnakeComponent
 @export var snake_component_shadow: SnakeComponent
@@ -31,6 +35,17 @@ func _process(_delta: float) -> void:
 
     if InputManager.instance.data.dodge_key.pressed:
         _dodge()
+    
+    var mouse_rot := (InputManager.instance.data.mouse_pos - global_position).angle()
+    gun_pivot.global_rotation = mouse_rot
+    gun.set("global_rotation", mouse_rot)
+    if mouse_rot > PI / 2 or mouse_rot < -PI / 2:
+        gun.set("scale", Vector2(1.0, -1.0))
+    else:
+        gun.set("scale", Vector2(1.0, 1.0))
+    # v2.zero cuz we use fire point
+    if InputManager.instance.data.shoot_primary_key.held:
+        gun.fire(Vector2.ZERO, (InputManager.instance.data.mouse_pos - global_position).normalized())
     
     # for i in range(snake_component.segment_count):
     #     var segment := snake_component.get_segment(i)

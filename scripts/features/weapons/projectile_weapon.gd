@@ -6,13 +6,15 @@ class BulletParams:
     var direction: Vector2
     var faction: FactionComponent
     var speed: float
+    var collision_layers: int = 0
     
     @warning_ignore("shadowed_variable")
-    func _init(p: Vector2, d: Vector2, f: FactionComponent, s: float) -> void:
+    func _init(p: Vector2, d: Vector2, f: FactionComponent, s: float, c: int) -> void:
         self.position = p
         self.direction = d
         self.faction = f
         self.speed = s
+        self.collision_layers = c
 
 @export_group("References")
 @export var use_fire_point: bool = false
@@ -46,7 +48,8 @@ func _handle_on_fired(fire_params: Weapon.FireParams) -> void:
         assert("init_bullet" in bullet)
         var t = _fire_point.global_position if use_fire_point else fire_params.position
         var d = _apply_spread(fire_params.direction, bullet_spread)
-        var bullet_params := BulletParams.new(t, d, faction, bullet_speed)
+        var bullet_params := BulletParams.new(t, d, faction, bullet_speed, fire_params.collision_layers)
+        bullet.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
         container.add_child(bullet)
         bullet.init_bullet(bullet_params)
 

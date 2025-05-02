@@ -1,28 +1,55 @@
-[gd_scene load_steps=11 format=3 uid="uid://djbiscwupf0yu"]
+[gd_scene load_steps=17 format=3 uid="uid://djbiscwupf0yu"]
 
 [ext_resource type="Script" uid="uid://bquvjpwtexqed" path="res://scripts/features/player/player.gd" id="1_pm5u7"]
+[ext_resource type="Script" uid="uid://drplh4p4usr1g" path="res://scripts/components/faction_component.gd" id="2_avsff"]
 [ext_resource type="Shader" uid="uid://ckoqjds0wo5xq" path="res://resources/shaders/scenes/gameplay/entities/player/player_snake_body.gdshader" id="2_u78ee"]
 [ext_resource type="Texture2D" uid="uid://dr6ftktum7xtx" path="res://assets/art/gameplay/entities/player/player_snake_eye.png" id="3_43yty"]
 [ext_resource type="Script" uid="uid://bjxi128id82av" path="res://scripts/features/player/snake_component.gd" id="3_dfvr2"]
+[ext_resource type="Script" uid="uid://bwsc6d3xsaxb2" path="res://scripts/components/hurtbox_component.gd" id="3_fnarg"]
 [ext_resource type="Script" uid="uid://cfwymi2svj7wy" path="res://scripts/features/player/snake_segment_component.gd" id="3_u78ee"]
+[ext_resource type="Script" uid="uid://do2cp2y6aadtw" path="res://scripts/components/health_component.gd" id="3_upkrn"]
 [ext_resource type="Texture2D" uid="uid://5gjlt1mbqkt3" path="res://assets/art/gameplay/entities/player/player_snake_segment_temp.png" id="5_ks3nw"]
 [ext_resource type="Script" uid="uid://d1oxyihiuxpf3" path="res://scripts/features/player/player_snake_eye_component.gd" id="6_758ca"]
 [ext_resource type="Texture2D" uid="uid://bgievgh6ynijl" path="res://assets/art/gameplay/entities/player/player_snake_segment_shadow_temp.png" id="6_dqs63"]
+[ext_resource type="Script" uid="uid://cwxjhhfbcp2xx" path="res://scripts/features/weapons/projectile_weapon.gd" id="9_vyhqp"]
+[ext_resource type="Texture2D" uid="uid://bsxtlrf6kne62" path="res://assets/art/gameplay/guns/gun_rifle.png" id="10_avsff"]
+[ext_resource type="PackedScene" uid="uid://13o11nhnge2f" path="res://scenes/gameplay/entities/bullets/basic_bullet.tscn" id="13_5stti"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pm5u7"]
+size = Vector2(6, 6)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dfvr2"]
 shader = ExtResource("2_u78ee")
 shader_parameter/u_line_colour = Color(0, 0, 0, 1)
 shader_parameter/u_line_thickness = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("snake_component", "snake_component_shadow", "eyes")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gun_pivot", "gun", "snake_component", "snake_component_shadow", "eyes")]
 script = ExtResource("1_pm5u7")
+gun_pivot = NodePath("GunPivot")
+gun = NodePath("GunPivot/Rifle")
 snake_component = NodePath("SnakeRender/Snake")
 snake_component_shadow = NodePath("SnakeShadow/SnakeShadow")
 shadow_offset = Vector2(2, 4)
 dodge_jump_force = 50.0
 eyes = NodePath("SnakeRender/Eyes")
+
+[node name="FactionComponent" type="Node" parent="."]
+script = ExtResource("2_avsff")
+faction = 0
+metadata/_custom_type_script = "uid://drplh4p4usr1g"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_upkrn")
+metadata/_custom_type_script = "uid://do2cp2y6aadtw"
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health", "faction")]
+script = ExtResource("3_fnarg")
+health = NodePath("../HealthComponent")
+faction = NodePath("../FactionComponent")
+metadata/_custom_type_script = "uid://bwsc6d3xsaxb2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_pm5u7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pm5u7")
@@ -274,3 +301,24 @@ texture = ExtResource("3_43yty")
 position = Vector2(-3, -3)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_43yty")
+
+[node name="GunPivot" type="Node2D" parent="."]
+
+[node name="Rifle" type="Node2D" parent="GunPivot" node_paths=PackedStringArray("faction")]
+position = Vector2(14, 3)
+script = ExtResource("9_vyhqp")
+use_fire_point = true
+fire_point_path = NodePath("FirePoint")
+bullet_prefab = ExtResource("13_5stti")
+bullet_speed = 300.0
+faction = NodePath("../../FactionComponent")
+collision_layers = 3
+fire_rate = 0.15
+
+[node name="Sprite2D" type="Sprite2D" parent="GunPivot/Rifle"]
+position = Vector2(6, 0)
+texture = ExtResource("10_avsff")
+offset = Vector2(0.5, 0)
+
+[node name="FirePoint" type="Marker2D" parent="GunPivot/Rifle"]
+position = Vector2(16, -2)
